@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace QualidadeDeSoftware.Models
 {
@@ -6,7 +7,8 @@ namespace QualidadeDeSoftware.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Nota { get; set; }
 
         [Display(Name = "Final")]
@@ -15,6 +17,7 @@ namespace QualidadeDeSoftware.Models
         [Display(Name = "Aluno")]
         public int AlunoId { get; set; }
 
+        [ValidateNever]
         public Aluno Aluno { get; set; } = new Aluno();
     }
 }

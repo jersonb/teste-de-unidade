@@ -18,7 +18,8 @@ namespace QualidadeDeSoftware.Controllers
         // GET: Provas
         public async Task<IActionResult> Index()
         {
-            var qualidadeDeSoftwareContext = _context.Prova.Include(p => p.Aluno);
+            var qualidadeDeSoftwareContext = _context.Prova
+                .Include(p => p.Aluno);
             return View(await qualidadeDeSoftwareContext.ToListAsync());
         }
 
@@ -42,10 +43,10 @@ namespace QualidadeDeSoftware.Controllers
         }
 
         // GET: Provas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int alunoId)
         {
-            ViewData["AlunoId"] = new SelectList(_context.Aluno, "Id", "Id");
-            return View();
+            var aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == alunoId);
+            return View(new Prova { Aluno = aluno });
         }
 
         // POST: Provas/Create
@@ -57,11 +58,11 @@ namespace QualidadeDeSoftware.Controllers
         {
             if (ModelState.IsValid)
             {
+                prova.Aluno = null;
                 _context.Add(prova);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlunoId"] = new SelectList(_context.Aluno, "Id", "Id", prova.AlunoId);
             return View(prova);
         }
 

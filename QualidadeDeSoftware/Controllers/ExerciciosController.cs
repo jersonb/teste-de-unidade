@@ -18,8 +18,11 @@ namespace QualidadeDeSoftware.Controllers
         // GET: Exercicios
         public async Task<IActionResult> Index()
         {
-            var qualidadeDeSoftwareContext = _context.Exercicio.Include(e => e.Aluno).Include(e => e.ExercicioProgramado);
-            return View(await qualidadeDeSoftwareContext.ToListAsync());
+            var qualidadeDeSoftwareContext = _context.Exercicio
+                .Include(e => e.Aluno)
+                .Include(e => e.ExercicioProgramado);
+            var exercicios = await qualidadeDeSoftwareContext.ToListAsync();
+            return View(exercicios);
         }
 
         // GET: Exercicios/Details/5
@@ -43,11 +46,13 @@ namespace QualidadeDeSoftware.Controllers
         }
 
         // GET: Exercicios/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int alunoId)
         {
-            ViewData["AlunoId"] = new SelectList(_context.Aluno, "Id", "Id");
-            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Id");
-            return View();
+            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome");
+
+            var aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == alunoId);
+
+            return View(new Exercicio { Aluno = aluno, DataEntrega = DateTimeOffset.Now });
         }
 
         // POST: Exercicios/Create
@@ -59,12 +64,14 @@ namespace QualidadeDeSoftware.Controllers
         {
             if (ModelState.IsValid)
             {
+                //exercicio.Aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == exercicio.AlunoId);
+                exercicio.Aluno = null;
                 _context.Add(exercicio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlunoId"] = new SelectList(_context.Aluno, "Id", "Id", exercicio.AlunoId);
-            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Id", exercicio.ExercicioProgramadoId);
+            ViewData["AlunoId"] = new SelectList(_context.Aluno, "Id", "Nome", exercicio.AlunoId);
+            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome", exercicio.ExercicioProgramadoId);
             return View(exercicio);
         }
 
