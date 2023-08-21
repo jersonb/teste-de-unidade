@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QualidadeDeSoftware.Data;
 using QualidadeDeSoftware.Models;
@@ -22,9 +17,9 @@ namespace QualidadeDeSoftware.Controllers
         // GET: Alunos
         public async Task<IActionResult> Index()
         {
-              return _context.Aluno != null ? 
-                          View(await _context.Aluno.ToListAsync()) :
-                          Problem("Entity set 'QualidadeDeSoftwareContext.Aluno'  is null.");
+            return _context.Aluno != null ?
+                        View(await _context.Aluno.ToListAsync()) :
+                        Problem("Entity set 'QualidadeDeSoftwareContext.Aluno'  is null.");
         }
 
         // GET: Alunos/Details/5
@@ -117,7 +112,7 @@ namespace QualidadeDeSoftware.Controllers
             }
             return View(aluno);
         }
-
+        
         // GET: Alunos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -150,14 +145,14 @@ namespace QualidadeDeSoftware.Controllers
             {
                 _context.Aluno.Remove(aluno);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AlunoExists(int id)
         {
-          return (_context.Aluno?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Aluno?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
