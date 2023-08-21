@@ -8,6 +8,8 @@ namespace QualidadeDeSoftware.Models
         public int Id { get; set; }
 
         public string Nome { get; set; } = string.Empty!;
+
+        [Display(Name = "Data Limite")]
         public DateTimeOffset DataLimite { get; set; }
     }
 }

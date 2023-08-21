@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QualidadeDeSoftware.Data;
@@ -161,14 +157,14 @@ namespace QualidadeDeSoftware.Controllers
             {
                 _context.Exercicio.Remove(exercicio);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExercicioExists(int id)
         {
-          return (_context.Exercicio?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Exercicio?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
