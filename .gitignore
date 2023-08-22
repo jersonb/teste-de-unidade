@@ -667,7 +667,8 @@ fabric.properties
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -1074,3 +1075,4 @@ $RECYCLE.BIN/
 /QualidadeDeSoftware/QualidadeDeSoftware.db-wal
 /QualidadeDeSoftware/QualidadeDeSoftware.db-shm
 /QualidadeDeSoftware/QualidadeDeSoftware.db
+.vscode/settings.json
