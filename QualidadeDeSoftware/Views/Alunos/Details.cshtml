@@ -1,4 +1,4 @@
-﻿@model QualidadeDeSoftware.Models.Aluno
+﻿@model QualidadeDeSoftware.Models.AlunoDetailView
 
 @{
     ViewData["Title"] = "Details";
@@ -10,12 +10,30 @@
     <h4>Aluno</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Exercicios)
+        </dt>
+        @foreach (var item in Model.Exercicios)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => item.Nome) | Ok: @Html.DisplayFor(model => item.EstaAdequado)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Provas)
+        </dt>
+        @foreach (var item in Model.Provas)
+        {
+            <dd class="col-sm-10">
+                Nota: @Html.DisplayFor(model => item.Nota) | Final: @Html.DisplayFor(model => item.EhFinal)
+            </dd>
+        }
     </dl>
 </div>
 <div>

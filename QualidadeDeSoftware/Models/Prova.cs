@@ -20,4 +20,20 @@ namespace QualidadeDeSoftware.Models
         [ValidateNever]
         public Aluno Aluno { get; set; } = new Aluno();
     }
+
+    public class ProvaIndexView
+    {
+        public int Id { get; set; }
+
+        public string Nota { get; set; }
+
+        [Display(Name = "Final")]
+        public bool EhFinal { get; set; }
+
+        [Display(Name = "Aluno")]
+        public int AlunoId { get; set; }
+
+        [ValidateNever]
+        public Aluno Aluno { get; set; } = new Aluno();
+    }
 }

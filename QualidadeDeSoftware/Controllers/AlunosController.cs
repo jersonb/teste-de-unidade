@@ -17,9 +17,10 @@ namespace QualidadeDeSoftware.Controllers
         // GET: Alunos
         public async Task<IActionResult> Index()
         {
-            return _context.Aluno != null ?
-                        View(await _context.Aluno.ToListAsync()) :
-                        Problem("Entity set 'QualidadeDeSoftwareContext.Aluno'  is null.");
+            var alunos = await _context.Aluno
+                .Select(x => (AlunoIndexView)x)
+                .ToListAsync();
+            return View(alunos);
         }
 
         // GET: Alunos/Details/5
@@ -31,13 +32,18 @@ namespace QualidadeDeSoftware.Controllers
             }
 
             var aluno = await _context.Aluno
-                .FirstOrDefaultAsync(m => m.Id == id);
+            .Include(x => x.Provas)
+            .Include(x => x.Exercicios)
+            .ThenInclude(x => x.ExercicioProgramado)
+            .Select(x => x)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
             if (aluno == null)
             {
                 return NotFound();
             }
 
-            return View(aluno);
+            return View((AlunoDetailView)aluno);
         }
 
         // GET: Alunos/Create
@@ -112,7 +118,7 @@ namespace QualidadeDeSoftware.Controllers
             }
             return View(aluno);
         }
-        
+
         // GET: Alunos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
