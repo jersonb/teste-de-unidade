@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QualidadeDeSoftware.Data;
 using QualidadeDeSoftware.Data.Models;
+using QualidadeDeSoftware.ViewObjects;
 
 namespace QualidadeDeSoftware.Controllers
 {
@@ -45,33 +46,34 @@ namespace QualidadeDeSoftware.Controllers
             return View(exercicio);
         }
 
-        // GET: Exercicios/Create
         public async Task<IActionResult> Create(int alunoId)
         {
             ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome");
 
             var aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == alunoId);
 
-            return View(new Exercicio { Aluno = aluno, DataEntrega = DateTimeOffset.Now });
+            return View(new ExercicioCreateView { AlunoId = alunoId, Aluno = aluno!.Nome, DataEntrega = DateTime.Now.ToString("dd/MM/yyyy") });
         }
 
-        // POST: Exercicios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DataEntrega,EstaAdequado,ExercicioProgramadoId,AlunoId")] Exercicio exercicio)
+        public async Task<IActionResult> Create([Bind("Id,DataEntrega,EstaAdequado,ExercicioProgramadoId,AlunoId")] ExercicioCreateView exercicioView)
         {
             if (ModelState.IsValid)
             {
-                exercicio.Aluno = null;
-                _context.Add(exercicio);
+                var exercicio = new Exercicio
+                {
+                    AlunoId = exercicioView.AlunoId,
+                    DataEntrega = DateTimeOffset.Parse(exercicioView.DataEntrega),
+                    EstaAdequado = exercicioView.EstaAdequado,
+                    ExercicioProgramadoId = exercicioView.ExercicioProgramadoId
+                };
+                _context.Exercicio.Add(exercicio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlunoId"] = new SelectList(_context.Aluno, "Id", "Nome", exercicio.AlunoId);
-            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome", exercicio.ExercicioProgramadoId);
-            return View(exercicio);
+            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome", exercicioView.ExercicioProgramadoId);
+            return View(exercicioView);
         }
 
         // GET: Exercicios/Edit/5
