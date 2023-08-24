@@ -4,7 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  
+
+	  <NoWarn>TI4106;TI5113</NoWarn> 
   </PropertyGroup>
 
   <ItemGroup>
