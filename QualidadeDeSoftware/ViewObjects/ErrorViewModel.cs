@@ -1,4 +1,4 @@
-namespace QualidadeDeSoftware.Models
+namespace QualidadeDeSoftware.ViewObjects
 {
     public class ErrorViewModel
     {

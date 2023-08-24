@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using QualidadeDeSoftware.Models;
+using QualidadeDeSoftware.ViewObjects;
 
 namespace QualidadeDeSoftware.Controllers
 {

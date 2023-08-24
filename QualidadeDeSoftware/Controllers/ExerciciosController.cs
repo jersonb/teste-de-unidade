@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QualidadeDeSoftware.Data;
-using QualidadeDeSoftware.Models;
+using QualidadeDeSoftware.Data.Models;
 
 namespace QualidadeDeSoftware.Controllers
 {
@@ -64,7 +64,6 @@ namespace QualidadeDeSoftware.Controllers
         {
             if (ModelState.IsValid)
             {
-                //exercicio.Aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == exercicio.AlunoId);
                 exercicio.Aluno = null;
                 _context.Add(exercicio);
                 await _context.SaveChangesAsync();

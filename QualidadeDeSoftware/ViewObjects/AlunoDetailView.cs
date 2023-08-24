@@ -1,33 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using QualidadeDeSoftware.Data.Models;
 
-namespace QualidadeDeSoftware.Models
+namespace QualidadeDeSoftware.ViewObjects
 {
-    public class Aluno
-    {
-        [Key]
-        public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty!;
-        public List<Prova> Provas { get; set; } = default!;
-        public List<Exercicio> Exercicios { get; set; } = default!;
-    }
-
-    public class AlunoIndexView
-    {
-        public int Id { get; set; }
-
-        [Display(Name = "Nome")]
-        public string Nome { get; set; } = string.Empty!;
-
-        public static implicit operator AlunoIndexView(Aluno aluno)
-        {
-            return new AlunoIndexView
-            {
-                Id = aluno.Id,
-                Nome = aluno.Nome
-            };
-        }
-    }
-
     public class AlunoDetailView
     {
         public int Id { get; set; }

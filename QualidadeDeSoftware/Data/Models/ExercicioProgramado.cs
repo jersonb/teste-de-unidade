@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QualidadeDeSoftware.Models
+namespace QualidadeDeSoftware.Data.Models
 {
     public class ExercicioProgramado
     {

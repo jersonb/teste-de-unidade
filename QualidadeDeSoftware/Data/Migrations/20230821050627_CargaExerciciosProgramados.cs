@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using QualidadeDeSoftware.Models;
+using QualidadeDeSoftware.Data.Models;
 
 #nullable disable
 

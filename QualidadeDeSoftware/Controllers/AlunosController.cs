@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QualidadeDeSoftware.Data;
-using QualidadeDeSoftware.Models;
+using QualidadeDeSoftware.Data.Models;
+using QualidadeDeSoftware.ViewObjects;
 
 namespace QualidadeDeSoftware.Controllers
 {

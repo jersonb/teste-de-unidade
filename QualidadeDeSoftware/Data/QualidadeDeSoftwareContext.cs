@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QualidadeDeSoftware.Models;
+using QualidadeDeSoftware.Data.Models;
 
 namespace QualidadeDeSoftware.Data
 {
