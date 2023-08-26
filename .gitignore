@@ -1076,3 +1076,6 @@ $RECYCLE.BIN/
 /QualidadeDeSoftware/QualidadeDeSoftware.db-shm
 /QualidadeDeSoftware/QualidadeDeSoftware.db
 .vscode/settings.json
+/QualidadeDeSoftware/Data/SQlLiteDatabase.db
+/QualidadeDeSoftware/Data/SQlLiteDatabase.db-shm
+/QualidadeDeSoftware/Data/SQlLiteDatabase.db-wal
