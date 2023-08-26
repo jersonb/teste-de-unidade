@@ -6,7 +6,7 @@ public class ExercicioCreateView
 {
     [Display(Name = "Data da Entrega")]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-    public string DataEntrega { get; set; } = string.Empty!;
+    public DateTime DataEntrega { get; set; } = DateTime.Now;
 
     [Display(Name = "Está Adequado")]
     public bool EstaAdequado { get; set; }

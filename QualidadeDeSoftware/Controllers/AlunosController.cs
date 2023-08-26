@@ -15,7 +15,6 @@ namespace QualidadeDeSoftware.Controllers
             _context = context;
         }
 
-        // GET: Alunos
         public async Task<IActionResult> Index()
         {
             var alunos = await _context.Aluno
@@ -24,7 +23,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(alunos);
         }
 
-        // GET: Alunos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Aluno == null)
@@ -47,15 +45,11 @@ namespace QualidadeDeSoftware.Controllers
             return View((AlunoDetailView)aluno);
         }
 
-        // GET: Alunos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Alunos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome")] Aluno aluno)
@@ -69,7 +63,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(aluno);
         }
 
-        // GET: Alunos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Aluno == null)
@@ -85,9 +78,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(aluno);
         }
 
-        // POST: Alunos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Aluno aluno)
@@ -120,7 +110,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(aluno);
         }
 
-        // GET: Alunos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Aluno == null)
@@ -138,7 +127,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(aluno);
         }
 
-        // POST: Alunos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

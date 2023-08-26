@@ -26,6 +26,6 @@ namespace QualidadeDeSoftware.Data.Models
         public int AlunoId { get; set; }
 
         [ValidateNever]
-        public Aluno Aluno { get; set; } = new Aluno();
+        public Aluno Aluno { get; set; } = default!;
     }
 }

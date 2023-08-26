@@ -16,7 +16,6 @@ namespace QualidadeDeSoftware.Controllers
             _context = context;
         }
 
-        // GET: Exercicios
         public async Task<IActionResult> Index()
         {
             var qualidadeDeSoftwareContext = _context.Exercicio
@@ -26,7 +25,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(exercicios);
         }
 
-        // GET: Exercicios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Exercicio == null)
@@ -48,11 +46,11 @@ namespace QualidadeDeSoftware.Controllers
 
         public async Task<IActionResult> Create(int alunoId)
         {
-            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome");
+            ViewBag.ExercicioProgramadoId = new SelectList(_context.ExercicioProgramado, "Id", "Nome");
 
             var aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == alunoId);
 
-            return View(new ExercicioCreateView { AlunoId = alunoId, Aluno = aluno!.Nome, DataEntrega = DateTime.Now.ToString("dd/MM/yyyy") });
+            return View(new ExercicioCreateView { AlunoId = alunoId, Aluno = aluno!.Nome });
         }
 
         [HttpPost]
@@ -64,7 +62,7 @@ namespace QualidadeDeSoftware.Controllers
                 var exercicio = new Exercicio
                 {
                     AlunoId = exercicioView.AlunoId,
-                    DataEntrega = DateTimeOffset.Parse(exercicioView.DataEntrega),
+                    DataEntrega = exercicioView.DataEntrega,
                     EstaAdequado = exercicioView.EstaAdequado,
                     ExercicioProgramadoId = exercicioView.ExercicioProgramadoId
                 };
@@ -72,11 +70,10 @@ namespace QualidadeDeSoftware.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ExercicioProgramadoId"] = new SelectList(_context.ExercicioProgramado, "Id", "Nome", exercicioView.ExercicioProgramadoId);
+            ViewBag.ExercicioProgramadoId = new SelectList(_context.ExercicioProgramado, "Id", "Nome", exercicioView.ExercicioProgramadoId);
             return View(exercicioView);
         }
 
-        // GET: Exercicios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Exercicio == null)
@@ -94,9 +91,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(exercicio);
         }
 
-        // POST: Exercicios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DataEntrega,EstaAdequado,ExercicioProgramadoId,AlunoId")] Exercicio exercicio)
@@ -131,7 +125,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(exercicio);
         }
 
-        // GET: Exercicios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Exercicio == null)
@@ -151,7 +144,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(exercicio);
         }
 
-        // POST: Exercicios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

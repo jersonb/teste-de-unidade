@@ -5,7 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
-	  <NoWarn>TI4106;TI5113</NoWarn> 
+	  <NoWarn>TI4106;TI5113</NoWarn>
+
+	  <UserSecretsId>e4d02471-4d06-481d-9759-b381eab04f36</UserSecretsId> 
   </PropertyGroup>
 
   <ItemGroup>

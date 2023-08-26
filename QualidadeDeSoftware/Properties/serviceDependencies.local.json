@@ -1,8 +1,18 @@
 {
   "dependencies": {
     "mssql1": {
-      "type": "mssql.local",
+      "ignored": "true",
+      "type": "mssql",
       "connectionId": "ConnectionStrings:QualidadeDeSoftwareContext"
+    },
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "sqlite1": {
+      "secretStore": "LocalSecretsFile",
+      "type": "sqlite.local",
+      "connectionId": "ConnectionStrings:QualidadeDeSoftwareContext",
+      "dynamicId": null
     }
   }
 }
