@@ -21,7 +21,10 @@ namespace QualidadeDeSoftware.Controllers
             var qualidadeDeSoftwareContext = _context.Exercicio
                 .Include(e => e.Aluno)
                 .Include(e => e.ExercicioProgramado);
-            var exercicios = await qualidadeDeSoftwareContext.ToListAsync();
+            var exercicios = await qualidadeDeSoftwareContext
+                .Select(x => (ExercicioIndexView)x)
+                .ToListAsync();
+
             return View(exercicios);
         }
 

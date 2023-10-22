@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QualidadeDeSoftware.Data;
 using QualidadeDeSoftware.Data.Models;
+using QualidadeDeSoftware.ViewObjects;
 
 namespace QualidadeDeSoftware.Controllers
 {
@@ -15,15 +16,15 @@ namespace QualidadeDeSoftware.Controllers
             _context = context;
         }
 
-        // GET: Provas
         public async Task<IActionResult> Index()
         {
-            var qualidadeDeSoftwareContext = _context.Prova
-                .Include(p => p.Aluno);
-            return View(await qualidadeDeSoftwareContext.ToListAsync());
+            var view = await _context.Prova
+                .Include(p => p.Aluno)
+                .Select(x => (ProvaIndexView)x)
+                .ToListAsync();
+            return View(view);
         }
 
-        // GET: Provas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Prova == null)
@@ -42,31 +43,37 @@ namespace QualidadeDeSoftware.Controllers
             return View(prova);
         }
 
-        // GET: Provas/Create
         public async Task<IActionResult> Create(int alunoId)
         {
-            var aluno = await _context.Aluno.FirstOrDefaultAsync(x => x.Id == alunoId);
-            return View(new Prova { Aluno = aluno });
+            var aluno = await _context.Aluno
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Nome
+                }).FirstOrDefaultAsync(x => x.Id == alunoId);
+            return View(new ProvaCreateView { Aluno = aluno.Nome, AlunoId = aluno.Id });
         }
 
-        // POST: Provas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nota,EhFinal,AlunoId")] Prova prova)
+        public async Task<IActionResult> Create([Bind("Nota,EhFinal,AlunoId")] ProvaCreateView provaView)
         {
             if (ModelState.IsValid)
             {
-                prova.Aluno = null;
-                _context.Add(prova);
+                var prova = new Prova
+                {
+                    AlunoId = provaView.AlunoId,
+                    EhFinal = provaView.EhFinal,
+                    Nota = decimal.Parse(provaView.Nota),
+                };
+
+                _context.Prova.Add(prova);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(prova);
+            return View(provaView);
         }
 
-        // GET: Provas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Prova == null)
@@ -83,9 +90,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(prova);
         }
 
-        // POST: Provas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nota,EhFinal,AlunoId")] Prova prova)
@@ -119,7 +123,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(prova);
         }
 
-        // GET: Provas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Prova == null)
@@ -138,7 +141,6 @@ namespace QualidadeDeSoftware.Controllers
             return View(prova);
         }
 
-        // POST: Provas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

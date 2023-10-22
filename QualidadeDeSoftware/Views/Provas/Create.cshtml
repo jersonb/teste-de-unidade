@@ -1,4 +1,4 @@
-﻿@model QualidadeDeSoftware.Data.Models.Prova
+﻿@model QualidadeDeSoftware.ViewObjects.ProvaCreateView
 
 
 @{
@@ -15,8 +15,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Aluno" class="control-label"></label>
-                <input type="hidden" asp-for="AlunoId" value="@Model.Aluno.Id" class="form-control" />
-                <input disabled value="@Model.Aluno.Nome" class="form-control" />
+                <input type="hidden" asp-for="AlunoId"  class="form-control" />
+                <input disabled value="@Model.Aluno" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Nota" class="control-label"></label>

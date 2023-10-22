@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using QualidadeDeSoftware.Data.Models;
 
 namespace QualidadeDeSoftware.ViewObjects
@@ -8,17 +7,23 @@ namespace QualidadeDeSoftware.ViewObjects
     {
         public int Id { get; set; }
 
-        [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString = "{0:D2}")]
         public string Nota { get; set; } = string.Empty!;
 
         [Display(Name = "Final")]
         public bool EhFinal { get; set; }
 
         [Display(Name = "Aluno")]
-        public int AlunoId { get; set; }
+        public string Aluno { get; set; } = string.Empty!;
 
-        [ValidateNever]
-        public Aluno Aluno { get; set; } = new Aluno();
+        public static implicit operator ProvaIndexView(Prova prova)
+        {
+            return new ProvaIndexView
+            {
+                Id = prova.Id,
+                Aluno = prova.Aluno.Nome,
+                EhFinal = prova.EhFinal,
+                Nota = prova.Nota.ToString("0.00"),
+            };
+        }
     }
 }

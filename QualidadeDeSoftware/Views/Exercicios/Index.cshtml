@@ -1,15 +1,11 @@
-﻿@model IEnumerable<QualidadeDeSoftware.Data.Models.Exercicio
->
+﻿@model IEnumerable<QualidadeDeSoftware.ViewObjects.ExercicioIndexView>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Exercícios</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -39,15 +35,13 @@
                     @Html.DisplayFor(modelItem => item.EstaAdequado)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExercicioProgramado.Nome)
+                    @Html.DisplayFor(modelItem => item.ExercicioProgramado)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Aluno.Nome)
+                    @Html.DisplayFor(modelItem => item.Aluno)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }
